@@ -2,7 +2,13 @@
 
 package main
 
-// An unreleased launcher: the release job replaces this file when it tags a version.
-const version = ""
+const version = "0.3.0"
 
-var archives = map[string]archive{}
+var archives = map[string]archive{
+	"darwin/amd64":  {triple: "x86_64-apple-darwin", name: "bonsai-lint-x86_64-apple-darwin.tar.gz", sha256: "73e945b6173558c5db7ceeb371ac2fb204e0a72250841ca6461f6ecee69868c4", binary: "bonsai-lint"},
+	"darwin/arm64":  {triple: "aarch64-apple-darwin", name: "bonsai-lint-aarch64-apple-darwin.tar.gz", sha256: "2557aff1d276358d207521110c00a11945fd8e03243c584d4bf03a7f4739d6c4", binary: "bonsai-lint"},
+	"linux/amd64":   {triple: "x86_64-unknown-linux-gnu", name: "bonsai-lint-x86_64-unknown-linux-gnu.tar.gz", sha256: "4c3e41151a0edadc3b835a55360768cd7a5824b4946b5fc32c3a3fde67785f6a", binary: "bonsai-lint"},
+	"linux/arm64":   {triple: "aarch64-unknown-linux-gnu", name: "bonsai-lint-aarch64-unknown-linux-gnu.tar.gz", sha256: "baa2940ed9fcdadc1dd20a5a983f47efc372e22f3438f58c82cb8e515216cae2", binary: "bonsai-lint"},
+	"windows/amd64": {triple: "x86_64-pc-windows-msvc", name: "bonsai-lint-x86_64-pc-windows-msvc.zip", sha256: "4787c84800609a988b41ef14e16bb1d3ae13b610b05bc5c6a61667686d35971c", binary: "bonsai-lint.exe"},
+	"windows/arm64": {triple: "x86_64-pc-windows-msvc", name: "bonsai-lint-x86_64-pc-windows-msvc.zip", sha256: "4787c84800609a988b41ef14e16bb1d3ae13b610b05bc5c6a61667686d35971c", binary: "bonsai-lint.exe"},
+}
