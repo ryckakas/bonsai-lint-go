@@ -54,6 +54,23 @@ func TestEveryPlatformGetsItsArchiveAndChecksum(t *testing.T) {
 	}
 }
 
+func TestWindowsOnArmGetsTheX64Archive(t *testing.T) {
+	_, entries, err := archives(load(t, "dist-manifest-targz.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	byPlatform := map[string]entry{}
+	for _, e := range entries {
+		byPlatform[e.platform] = e
+	}
+	arm, x64 := byPlatform["windows/arm64"], byPlatform["windows/amd64"]
+	arm.platform, x64.platform = "", ""
+
+	if arm != x64 || x64.name != "bonsai-lint-x86_64-pc-windows-msvc.zip" {
+		t.Fatalf("windows/arm64 = %+v, windows/amd64 = %+v", arm, x64)
+	}
+}
+
 func TestTheVersionMustBeTheTag(t *testing.T) {
 	m := load(t, "dist-manifest-targz.json")
 	m.AnnouncementTag = "v9.9.9"

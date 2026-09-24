@@ -10,4 +10,5 @@ var archives = map[string]archive{
 	"linux/amd64":   {triple: "x86_64-unknown-linux-gnu", name: "bonsai-lint-x86_64-unknown-linux-gnu.tar.gz", sha256: "e042c332559c83fc461d8a6d0dc078ccf6e610a2a3c7d7f00c08234b442ea7fe", binary: "bonsai-lint"},
 	"linux/arm64":   {triple: "aarch64-unknown-linux-gnu", name: "bonsai-lint-aarch64-unknown-linux-gnu.tar.gz", sha256: "959027b96bb13a65d5a025954eb55bcbc38f4b8429b884b5c49dbaed82aac21c", binary: "bonsai-lint"},
 	"windows/amd64": {triple: "x86_64-pc-windows-msvc", name: "bonsai-lint-x86_64-pc-windows-msvc.zip", sha256: "63cbb8afb8dc8e2b2b30dd9a54cc6b70e6c1818d49d713b4236cef132278915b", binary: "bonsai-lint.exe"},
+	"windows/arm64": {triple: "x86_64-pc-windows-msvc", name: "bonsai-lint-x86_64-pc-windows-msvc.zip", sha256: "63cbb8afb8dc8e2b2b30dd9a54cc6b70e6c1818d49d713b4236cef132278915b", binary: "bonsai-lint.exe"},
 }

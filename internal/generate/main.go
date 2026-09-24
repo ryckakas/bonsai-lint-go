@@ -25,6 +25,8 @@ var platforms = map[string]string{
 	"linux/amd64":   "x86_64-unknown-linux-gnu",
 	"linux/arm64":   "aarch64-unknown-linux-gnu",
 	"windows/amd64": "x86_64-pc-windows-msvc",
+	// No native build yet; Windows 11 on ARM runs the x64 binary under emulation.
+	"windows/arm64": "x86_64-pc-windows-msvc",
 }
 
 type manifest struct {

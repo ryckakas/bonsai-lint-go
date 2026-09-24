@@ -42,12 +42,13 @@ binary you run.
 | `darwin/arm64`, `darwin/amd64` | macOS |
 | `linux/amd64`, `linux/arm64` | Linux with glibc 2.35 or newer (Ubuntu 22.04, Debian 12, RHEL 9 and newer) |
 | `windows/amd64` | Windows |
+| `windows/arm64` | Windows x64, which Windows 11 on ARM runs under emulation, as npm's installer does |
 
-- **Other platforms fail with an explanation.** That includes musl Linux such as Alpine, glibc
-  older than 2.35, and Windows on ARM. Install bonsai-lint from source with
-  `cargo install bonsai-lint` there, and point `BONSAI_LINT_BINARY` at the result.
-- **These gaps are known.** musl, Windows on ARM and an older glibc floor are on the
-  [roadmap](https://github.com/ryckakas/bonsai-lint/blob/main/ROADMAP.md).
+- **Other platforms fail with an explanation.** That includes musl Linux such as Alpine, and
+  glibc older than 2.35. Install bonsai-lint from source with `cargo install bonsai-lint` there,
+  and point `BONSAI_LINT_BINARY` at the result.
+- **These gaps are known.** musl, a native Windows on ARM build and an older glibc floor are on
+  the [roadmap](https://github.com/ryckakas/bonsai-lint/blob/main/ROADMAP.md).
 
 ## Settings
 
