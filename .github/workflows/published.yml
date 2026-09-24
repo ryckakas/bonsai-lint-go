@@ -31,6 +31,7 @@ jobs:
           # The proxy can take a minute to see a new tag.
           for attempt in 1 2 3 4 5 6 7 8 9 10; do
             go install "bonsai.kauneckas.dev/bonsai-lint@${GITHUB_REF_NAME}" && exit 0
+            echo "attempt $attempt: the proxy does not serve ${GITHUB_REF_NAME} yet"
             sleep 30
           done
           exit 1
