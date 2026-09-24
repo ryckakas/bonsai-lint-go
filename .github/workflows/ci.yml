@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Test (${{ matrix.os }}, Go ${{ matrix.go }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        # The oldest Go the module declares, and the newest.
+        go: ["1.21.x", stable]
+        # Current macOS refuses binaries without an LC_UUID load command, which Go 1.21's
+        # linker does not write; that is the toolchain's limit, not the module's.
+        exclude:
+          - os: macos-latest
+            go: "1.21.x"
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version: ${{ matrix.go }}
+      - run: go vet ./...
+      - run: go test -race ./...
+
+  module:
+    name: Module shape
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version: stable
+      # `go get -tool` merges a tool's dependencies into the user's go.mod, so there must be none.
+      - name: No dependencies
+        run: test "$(go list -m all)" = "bonsai.kauneckas.dev/bonsai-lint"
+      - name: Builds everywhere, including platforms it can only explain
+        run: |
+          for platform in darwin/amd64 darwin/arm64 linux/amd64 linux/arm64 windows/amd64 \
+                          windows/arm64 linux/riscv64 freebsd/amd64 plan9/amd64 js/wasm; do
+            GOOS=${platform%/*} GOARCH=${platform#*/} go build -o /dev/null . || exit 1
+          done

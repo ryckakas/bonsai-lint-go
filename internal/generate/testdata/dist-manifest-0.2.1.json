@@ -1,0 +1,654 @@
+{
+  "dist_version": "0.33.0",
+  "announcement_tag": "v0.2.1",
+  "announcement_tag_is_implicit": false,
+  "announcement_is_prerelease": false,
+  "announcement_title": "0.2.1 - 2026-09-22",
+  "announcement_changelog": "### Changed\n\n- Documentation only, with no change to any score.",
+  "announcement_github_body": "## Release Notes\n\n### Changed\n\n- Documentation only, with no change to any score.\n\n## Install bonsai-lint 0.2.1\n\n### Install prebuilt binaries via shell script\n\n```sh\ncurl --proto '=https' --tlsv1.2 -LsSf https://github.com/ryckakas/bonsai-lint/releases/download/v0.2.1/bonsai-lint-installer.sh | sh\n```\n\n### Install prebuilt binaries via powershell script\n\n```sh\npowershell -ExecutionPolicy Bypass -c \"irm https://github.com/ryckakas/bonsai-lint/releases/download/v0.2.1/bonsai-lint-installer.ps1 | iex\"\n```\n\n### Install prebuilt binaries via Homebrew\n\n```sh\nbrew install ryckakas/tap/bonsai-lint\n```\n\n### Install prebuilt binaries into your npm project\n\n```sh\nnpm install bonsai-lint@0.2.1\n```\n\n## Download bonsai-lint 0.2.1\n\n|  File  | Platform | Checksum |\n|--------|----------|----------|\n| [bonsai-lint-aarch64-apple-darwin.tar.xz](https://github.com/ryckakas/bonsai-lint/releases/download/v0.2.1/bonsai-lint-aarch64-apple-darwin.tar.xz) | Apple Silicon macOS | [checksum](https://github.com/ryckakas/bonsai-lint/releases/download/v0.2.1/bonsai-lint-aarch64-apple-darwin.tar.xz.sha256) |\n| [bonsai-lint-x86_64-apple-darwin.tar.xz](https://github.com/ryckakas/bonsai-lint/releases/download/v0.2.1/bonsai-lint-x86_64-apple-darwin.tar.xz) | Intel macOS | [checksum](https://github.com/ryckakas/bonsai-lint/releases/download/v0.2.1/bonsai-lint-x86_64-apple-darwin.tar.xz.sha256) |\n| [bonsai-lint-x86_64-pc-windows-msvc.zip](https://github.com/ryckakas/bonsai-lint/releases/download/v0.2.1/bonsai-lint-x86_64-pc-windows-msvc.zip) | x64 Windows | [checksum](https://github.com/ryckakas/bonsai-lint/releases/download/v0.2.1/bonsai-lint-x86_64-pc-windows-msvc.zip.sha256) |\n| [bonsai-lint-aarch64-unknown-linux-gnu.tar.xz](https://github.com/ryckakas/bonsai-lint/releases/download/v0.2.1/bonsai-lint-aarch64-unknown-linux-gnu.tar.xz) | ARM64 Linux | [checksum](https://github.com/ryckakas/bonsai-lint/releases/download/v0.2.1/bonsai-lint-aarch64-unknown-linux-gnu.tar.xz.sha256) |\n| [bonsai-lint-x86_64-unknown-linux-gnu.tar.xz](https://github.com/ryckakas/bonsai-lint/releases/download/v0.2.1/bonsai-lint-x86_64-unknown-linux-gnu.tar.xz) | x64 Linux | [checksum](https://github.com/ryckakas/bonsai-lint/releases/download/v0.2.1/bonsai-lint-x86_64-unknown-linux-gnu.tar.xz.sha256) |\n\n",
+  "releases": [
+    {
+      "app_name": "bonsai-lint",
+      "app_version": "0.2.1",
+      "env": {
+        "install_dir_env_var": "BONSAI_LINT_INSTALL_DIR",
+        "unmanaged_dir_env_var": "BONSAI_LINT_UNMANAGED_INSTALL",
+        "disable_update_env_var": "BONSAI_LINT_DISABLE_UPDATE",
+        "no_modify_path_env_var": "BONSAI_LINT_NO_MODIFY_PATH",
+        "print_quiet_env_var": "BONSAI_LINT_PRINT_QUIET",
+        "print_verbose_env_var": "BONSAI_LINT_PRINT_VERBOSE",
+        "download_url_env_var": "BONSAI_LINT_DOWNLOAD_URL",
+        "github_base_url_env_var": "BONSAI_LINT_INSTALLER_GITHUB_BASE_URL",
+        "ghe_base_url_env_var": "BONSAI_LINT_INSTALLER_GHE_BASE_URL",
+        "github_token_env_var": "BONSAI_LINT_GITHUB_TOKEN"
+      },
+      "display_name": "bonsai-lint",
+      "display": true,
+      "artifacts": [
+        "source.tar.gz",
+        "source.tar.gz.sha256",
+        "bonsai-lint-installer.sh",
+        "bonsai-lint-installer.ps1",
+        "bonsai-lint.rb",
+        "bonsai-lint-npm-package.tar.gz",
+        "sha256.sum",
+        "bonsai-lint-aarch64-apple-darwin.tar.xz",
+        "bonsai-lint-aarch64-apple-darwin.tar.xz.sha256",
+        "bonsai-lint-aarch64-unknown-linux-gnu.tar.xz",
+        "bonsai-lint-aarch64-unknown-linux-gnu.tar.xz.sha256",
+        "bonsai-lint-x86_64-apple-darwin.tar.xz",
+        "bonsai-lint-x86_64-apple-darwin.tar.xz.sha256",
+        "bonsai-lint-x86_64-pc-windows-msvc.zip",
+        "bonsai-lint-x86_64-pc-windows-msvc.zip.sha256",
+        "bonsai-lint-x86_64-unknown-linux-gnu.tar.xz",
+        "bonsai-lint-x86_64-unknown-linux-gnu.tar.xz.sha256"
+      ],
+      "hosting": {
+        "github": {
+          "artifact_base_url": "https://github.com",
+          "artifact_download_path": "/ryckakas/bonsai-lint/releases/download/v0.2.1",
+          "owner": "ryckakas",
+          "repo": "bonsai-lint"
+        }
+      }
+    }
+  ],
+  "artifacts": {
+    "bonsai-lint-aarch64-apple-darwin.tar.xz": {
+      "name": "bonsai-lint-aarch64-apple-darwin.tar.xz",
+      "kind": "executable-zip",
+      "target_triples": [
+        "aarch64-apple-darwin"
+      ],
+      "assets": [
+        {
+          "name": "CHANGELOG.md",
+          "path": "CHANGELOG.md",
+          "kind": "changelog"
+        },
+        {
+          "name": "LICENSE",
+          "path": "LICENSE",
+          "kind": "license"
+        },
+        {
+          "name": "README.md",
+          "path": "README.md",
+          "kind": "readme"
+        },
+        {
+          "id": "bonsai-lint-aarch64-apple-darwin-exe-bonsai-lint",
+          "name": "bonsai-lint",
+          "path": "bonsai-lint",
+          "kind": "executable"
+        }
+      ],
+      "checksum": "bonsai-lint-aarch64-apple-darwin.tar.xz.sha256",
+      "checksums": {
+        "sha256": "1f76ed4bca6db7249f458959199ec258673fc199ffcaf9c72fd49dfc33d5f159"
+      }
+    },
+    "bonsai-lint-aarch64-apple-darwin.tar.xz.sha256": {
+      "name": "bonsai-lint-aarch64-apple-darwin.tar.xz.sha256",
+      "kind": "checksum",
+      "target_triples": [
+        "aarch64-apple-darwin"
+      ]
+    },
+    "bonsai-lint-aarch64-unknown-linux-gnu.tar.xz": {
+      "name": "bonsai-lint-aarch64-unknown-linux-gnu.tar.xz",
+      "kind": "executable-zip",
+      "target_triples": [
+        "aarch64-unknown-linux-gnu"
+      ],
+      "assets": [
+        {
+          "name": "CHANGELOG.md",
+          "path": "CHANGELOG.md",
+          "kind": "changelog"
+        },
+        {
+          "name": "LICENSE",
+          "path": "LICENSE",
+          "kind": "license"
+        },
+        {
+          "name": "README.md",
+          "path": "README.md",
+          "kind": "readme"
+        },
+        {
+          "id": "bonsai-lint-aarch64-unknown-linux-gnu-exe-bonsai-lint",
+          "name": "bonsai-lint",
+          "path": "bonsai-lint",
+          "kind": "executable"
+        }
+      ],
+      "checksum": "bonsai-lint-aarch64-unknown-linux-gnu.tar.xz.sha256",
+      "checksums": {
+        "sha256": "959027b96bb13a65d5a025954eb55bcbc38f4b8429b884b5c49dbaed82aac21c"
+      }
+    },
+    "bonsai-lint-aarch64-unknown-linux-gnu.tar.xz.sha256": {
+      "name": "bonsai-lint-aarch64-unknown-linux-gnu.tar.xz.sha256",
+      "kind": "checksum",
+      "target_triples": [
+        "aarch64-unknown-linux-gnu"
+      ]
+    },
+    "bonsai-lint-installer.ps1": {
+      "name": "bonsai-lint-installer.ps1",
+      "kind": "installer",
+      "target_triples": [
+        "aarch64-pc-windows-msvc",
+        "x86_64-pc-windows-gnu",
+        "x86_64-pc-windows-msvc"
+      ],
+      "install_hint": "powershell -ExecutionPolicy Bypass -c \"irm https://github.com/ryckakas/bonsai-lint/releases/download/v0.2.1/bonsai-lint-installer.ps1 | iex\"",
+      "description": "Install prebuilt binaries via powershell script"
+    },
+    "bonsai-lint-installer.sh": {
+      "name": "bonsai-lint-installer.sh",
+      "kind": "installer",
+      "target_triples": [
+        "aarch64-apple-darwin",
+        "aarch64-unknown-linux-gnu",
+        "x86_64-apple-darwin",
+        "x86_64-pc-windows-gnu",
+        "x86_64-unknown-linux-gnu"
+      ],
+      "install_hint": "curl --proto '=https' --tlsv1.2 -LsSf https://github.com/ryckakas/bonsai-lint/releases/download/v0.2.1/bonsai-lint-installer.sh | sh",
+      "description": "Install prebuilt binaries via shell script"
+    },
+    "bonsai-lint-npm-package.tar.gz": {
+      "name": "bonsai-lint-npm-package.tar.gz",
+      "kind": "installer",
+      "target_triples": [
+        "aarch64-apple-darwin",
+        "aarch64-pc-windows-msvc",
+        "aarch64-unknown-linux-gnu",
+        "x86_64-apple-darwin",
+        "x86_64-pc-windows-gnu",
+        "x86_64-pc-windows-msvc",
+        "x86_64-unknown-linux-gnu"
+      ],
+      "assets": [
+        {
+          "name": ".gitignore",
+          "path": ".gitignore",
+          "kind": "unknown"
+        },
+        {
+          "name": "CHANGELOG.md",
+          "path": "CHANGELOG.md",
+          "kind": "changelog"
+        },
+        {
+          "name": "LICENSE",
+          "path": "LICENSE",
+          "kind": "license"
+        },
+        {
+          "name": "README.md",
+          "path": "README.md",
+          "kind": "readme"
+        },
+        {
+          "name": "binary-install.js",
+          "path": "binary-install.js",
+          "kind": "unknown"
+        },
+        {
+          "name": "binary.js",
+          "path": "binary.js",
+          "kind": "unknown"
+        },
+        {
+          "name": "install.js",
+          "path": "install.js",
+          "kind": "unknown"
+        },
+        {
+          "name": "package.json",
+          "path": "package.json",
+          "kind": "unknown"
+        },
+        {
+          "name": "run.js",
+          "path": "run.js",
+          "kind": "unknown"
+        }
+      ],
+      "install_hint": "npm install bonsai-lint@0.2.1",
+      "description": "Install prebuilt binaries into your npm project",
+      "checksums": {
+        "sha256": "b9d3a0d9a79dd43c835127324577f955fa69def5110fd4a0d9c9e06d77818986"
+      }
+    },
+    "bonsai-lint-x86_64-apple-darwin.tar.xz": {
+      "name": "bonsai-lint-x86_64-apple-darwin.tar.xz",
+      "kind": "executable-zip",
+      "target_triples": [
+        "x86_64-apple-darwin"
+      ],
+      "assets": [
+        {
+          "name": "CHANGELOG.md",
+          "path": "CHANGELOG.md",
+          "kind": "changelog"
+        },
+        {
+          "name": "LICENSE",
+          "path": "LICENSE",
+          "kind": "license"
+        },
+        {
+          "name": "README.md",
+          "path": "README.md",
+          "kind": "readme"
+        },
+        {
+          "id": "bonsai-lint-x86_64-apple-darwin-exe-bonsai-lint",
+          "name": "bonsai-lint",
+          "path": "bonsai-lint",
+          "kind": "executable"
+        }
+      ],
+      "checksum": "bonsai-lint-x86_64-apple-darwin.tar.xz.sha256",
+      "checksums": {
+        "sha256": "18d45a5a06f987054afb3ec3c23fe8f7591504aba0ae86f14c5a000569933f3b"
+      }
+    },
+    "bonsai-lint-x86_64-apple-darwin.tar.xz.sha256": {
+      "name": "bonsai-lint-x86_64-apple-darwin.tar.xz.sha256",
+      "kind": "checksum",
+      "target_triples": [
+        "x86_64-apple-darwin"
+      ]
+    },
+    "bonsai-lint-x86_64-pc-windows-msvc.zip": {
+      "name": "bonsai-lint-x86_64-pc-windows-msvc.zip",
+      "kind": "executable-zip",
+      "target_triples": [
+        "x86_64-pc-windows-msvc"
+      ],
+      "assets": [
+        {
+          "name": "CHANGELOG.md",
+          "path": "CHANGELOG.md",
+          "kind": "changelog"
+        },
+        {
+          "name": "LICENSE",
+          "path": "LICENSE",
+          "kind": "license"
+        },
+        {
+          "name": "README.md",
+          "path": "README.md",
+          "kind": "readme"
+        },
+        {
+          "id": "bonsai-lint-x86_64-pc-windows-msvc-exe-bonsai-lint",
+          "name": "bonsai-lint",
+          "path": "bonsai-lint.exe",
+          "kind": "executable"
+        }
+      ],
+      "checksum": "bonsai-lint-x86_64-pc-windows-msvc.zip.sha256",
+      "checksums": {
+        "sha256": "63cbb8afb8dc8e2b2b30dd9a54cc6b70e6c1818d49d713b4236cef132278915b"
+      }
+    },
+    "bonsai-lint-x86_64-pc-windows-msvc.zip.sha256": {
+      "name": "bonsai-lint-x86_64-pc-windows-msvc.zip.sha256",
+      "kind": "checksum",
+      "target_triples": [
+        "x86_64-pc-windows-msvc"
+      ]
+    },
+    "bonsai-lint-x86_64-unknown-linux-gnu.tar.xz": {
+      "name": "bonsai-lint-x86_64-unknown-linux-gnu.tar.xz",
+      "kind": "executable-zip",
+      "target_triples": [
+        "x86_64-unknown-linux-gnu"
+      ],
+      "assets": [
+        {
+          "name": "CHANGELOG.md",
+          "path": "CHANGELOG.md",
+          "kind": "changelog"
+        },
+        {
+          "name": "LICENSE",
+          "path": "LICENSE",
+          "kind": "license"
+        },
+        {
+          "name": "README.md",
+          "path": "README.md",
+          "kind": "readme"
+        },
+        {
+          "id": "bonsai-lint-x86_64-unknown-linux-gnu-exe-bonsai-lint",
+          "name": "bonsai-lint",
+          "path": "bonsai-lint",
+          "kind": "executable"
+        }
+      ],
+      "checksum": "bonsai-lint-x86_64-unknown-linux-gnu.tar.xz.sha256",
+      "checksums": {
+        "sha256": "e042c332559c83fc461d8a6d0dc078ccf6e610a2a3c7d7f00c08234b442ea7fe"
+      }
+    },
+    "bonsai-lint-x86_64-unknown-linux-gnu.tar.xz.sha256": {
+      "name": "bonsai-lint-x86_64-unknown-linux-gnu.tar.xz.sha256",
+      "kind": "checksum",
+      "target_triples": [
+        "x86_64-unknown-linux-gnu"
+      ]
+    },
+    "bonsai-lint.rb": {
+      "name": "bonsai-lint.rb",
+      "kind": "installer",
+      "target_triples": [
+        "aarch64-apple-darwin",
+        "aarch64-unknown-linux-gnu",
+        "x86_64-apple-darwin",
+        "x86_64-pc-windows-gnu",
+        "x86_64-unknown-linux-gnu"
+      ],
+      "install_hint": "brew install ryckakas/tap/bonsai-lint",
+      "description": "Install prebuilt binaries via Homebrew"
+    },
+    "sha256.sum": {
+      "name": "sha256.sum",
+      "kind": "unified-checksum"
+    },
+    "source.tar.gz": {
+      "name": "source.tar.gz",
+      "kind": "source-tarball",
+      "checksum": "source.tar.gz.sha256",
+      "checksums": {
+        "sha256": "71d32673716ec2a7910ca98e87933c9b89d5e0f2f67021d7523407451875685c"
+      }
+    },
+    "source.tar.gz.sha256": {
+      "name": "source.tar.gz.sha256",
+      "kind": "checksum"
+    }
+  },
+  "systems": {
+    "build:global:": {
+      "id": "build:global:",
+      "cargo_version_line": "cargo 1.98.1 (797e8a9bc 2026-08-05)",
+      "build_environment": {
+        "linux": {
+          "glibc_version": {
+            "major": 2,
+            "series": 35
+          }
+        }
+      }
+    },
+    "build:local:aarch64-apple-darwin": {
+      "id": "build:local:aarch64-apple-darwin",
+      "cargo_version_line": "cargo 1.98.0 (797e8a9bc 2026-08-05)",
+      "build_environment": {
+        "macos": {
+          "os_version": "14.8.9"
+        }
+      }
+    },
+    "build:local:aarch64-unknown-linux-gnu": {
+      "id": "build:local:aarch64-unknown-linux-gnu",
+      "cargo_version_line": "cargo 1.98.1 (797e8a9bc 2026-08-05)",
+      "build_environment": {
+        "linux": {
+          "glibc_version": {
+            "major": 2,
+            "series": 35
+          }
+        }
+      }
+    },
+    "build:local:x86_64-apple-darwin": {
+      "id": "build:local:x86_64-apple-darwin",
+      "cargo_version_line": "cargo 1.98.0 (797e8a9bc 2026-08-05)",
+      "build_environment": {
+        "macos": {
+          "os_version": "15.7.9"
+        }
+      }
+    },
+    "build:local:x86_64-pc-windows-msvc": {
+      "id": "build:local:x86_64-pc-windows-msvc",
+      "cargo_version_line": "cargo 1.98.1 (797e8a9bc 2026-08-05)",
+      "build_environment": "windows"
+    },
+    "build:local:x86_64-unknown-linux-gnu": {
+      "id": "build:local:x86_64-unknown-linux-gnu",
+      "cargo_version_line": "cargo 1.98.1 (797e8a9bc 2026-08-05)",
+      "build_environment": {
+        "linux": {
+          "glibc_version": {
+            "major": 2,
+            "series": 35
+          }
+        }
+      }
+    },
+    "host:create:all:": {
+      "id": "host:create:all:",
+      "cargo_version_line": "cargo 1.98.1 (797e8a9bc 2026-08-05)",
+      "build_environment": {
+        "linux": {
+          "glibc_version": {
+            "major": 2,
+            "series": 35
+          }
+        }
+      }
+    },
+    "host:upload,release:all:": {
+      "id": "host:upload,release:all:",
+      "cargo_version_line": "cargo 1.98.1 (797e8a9bc 2026-08-05)",
+      "build_environment": {
+        "linux": {
+          "glibc_version": {
+            "major": 2,
+            "series": 35
+          }
+        }
+      }
+    }
+  },
+  "assets": {
+    "bonsai-lint-aarch64-apple-darwin-exe-bonsai-lint": {
+      "id": "bonsai-lint-aarch64-apple-darwin-exe-bonsai-lint",
+      "name": "bonsai-lint",
+      "system": "build:local:aarch64-apple-darwin",
+      "target_triples": [
+        "aarch64-apple-darwin"
+      ],
+      "linkage": {
+        "system": [
+          {
+            "path": "/usr/lib/libSystem.B.dylib",
+            "package_manager": null
+          }
+        ]
+      }
+    },
+    "bonsai-lint-aarch64-unknown-linux-gnu-exe-bonsai-lint": {
+      "id": "bonsai-lint-aarch64-unknown-linux-gnu-exe-bonsai-lint",
+      "name": "bonsai-lint",
+      "system": "build:local:aarch64-unknown-linux-gnu",
+      "target_triples": [
+        "aarch64-unknown-linux-gnu"
+      ],
+      "linkage": {
+        "system": [
+          {
+            "path": "/usr/lib/aarch64-linux-gnu/libc.so.6",
+            "package_manager": null
+          },
+          {
+            "path": "/usr/lib/aarch64-linux-gnu/libgcc_s.so.1",
+            "package_manager": null
+          }
+        ]
+      }
+    },
+    "bonsai-lint-x86_64-apple-darwin-exe-bonsai-lint": {
+      "id": "bonsai-lint-x86_64-apple-darwin-exe-bonsai-lint",
+      "name": "bonsai-lint",
+      "system": "build:local:x86_64-apple-darwin",
+      "target_triples": [
+        "x86_64-apple-darwin"
+      ],
+      "linkage": {
+        "system": [
+          {
+            "path": "/usr/lib/libSystem.B.dylib",
+            "package_manager": null
+          }
+        ]
+      }
+    },
+    "bonsai-lint-x86_64-pc-windows-msvc-exe-bonsai-lint": {
+      "id": "bonsai-lint-x86_64-pc-windows-msvc-exe-bonsai-lint",
+      "name": "bonsai-lint",
+      "system": "build:local:x86_64-pc-windows-msvc",
+      "target_triples": [
+        "x86_64-pc-windows-msvc"
+      ],
+      "linkage": {
+        "other": [
+          {
+            "path": "KERNEL32.dll",
+            "package_manager": null
+          },
+          {
+            "path": "USERENV.dll",
+            "package_manager": null
+          },
+          {
+            "path": "api-ms-win-core-synch-l1-2-0.dll",
+            "package_manager": null
+          },
+          {
+            "path": "bcryptprimitives.dll",
+            "package_manager": null
+          },
+          {
+            "path": "kernel32.dll",
+            "package_manager": null
+          },
+          {
+            "path": "ntdll.dll",
+            "package_manager": null
+          }
+        ]
+      }
+    },
+    "bonsai-lint-x86_64-unknown-linux-gnu-exe-bonsai-lint": {
+      "id": "bonsai-lint-x86_64-unknown-linux-gnu-exe-bonsai-lint",
+      "name": "bonsai-lint",
+      "system": "build:local:x86_64-unknown-linux-gnu",
+      "target_triples": [
+        "x86_64-unknown-linux-gnu"
+      ],
+      "linkage": {
+        "system": [
+          {
+            "path": "/usr/lib/x86_64-linux-gnu/libc.so.6",
+            "package_manager": null
+          },
+          {
+            "path": "/usr/lib/x86_64-linux-gnu/libgcc_s.so.1",
+            "package_manager": null
+          }
+        ]
+      }
+    }
+  },
+  "publish_prereleases": false,
+  "force_latest": false,
+  "ci": {
+    "github": {
+      "artifacts_matrix": {
+        "include": [
+          {
+            "runner": "macos-14",
+            "host": "aarch64-apple-darwin",
+            "install_dist": {
+              "shell": "sh",
+              "run": "curl --proto '=https' --tlsv1.2 -LsSf https://github.com/axodotdev/cargo-dist/releases/download/v0.33.0/cargo-dist-installer.sh | sh"
+            },
+            "dist_args": "--artifacts=local --target=aarch64-apple-darwin",
+            "targets": [
+              "aarch64-apple-darwin"
+            ],
+            "cache_provider": "github"
+          },
+          {
+            "runner": "ubuntu-22.04-arm",
+            "host": "aarch64-unknown-linux-gnu",
+            "install_dist": {
+              "shell": "sh",
+              "run": "curl --proto '=https' --tlsv1.2 -LsSf https://github.com/axodotdev/cargo-dist/releases/download/v0.33.0/cargo-dist-installer.sh | sh"
+            },
+            "dist_args": "--artifacts=local --target=aarch64-unknown-linux-gnu",
+            "targets": [
+              "aarch64-unknown-linux-gnu"
+            ],
+            "cache_provider": "github"
+          },
+          {
+            "runner": "macos-15-intel",
+            "host": "x86_64-apple-darwin",
+            "install_dist": {
+              "shell": "sh",
+              "run": "curl --proto '=https' --tlsv1.2 -LsSf https://github.com/axodotdev/cargo-dist/releases/download/v0.33.0/cargo-dist-installer.sh | sh"
+            },
+            "dist_args": "--artifacts=local --target=x86_64-apple-darwin",
+            "targets": [
+              "x86_64-apple-darwin"
+            ],
+            "cache_provider": "github"
+          },
+          {
+            "runner": "windows-2022",
+            "host": "x86_64-pc-windows-msvc",
+            "install_dist": {
+              "shell": "pwsh",
+              "run": "irm https://github.com/axodotdev/cargo-dist/releases/download/v0.33.0/cargo-dist-installer.ps1 | iex"
+            },
+            "dist_args": "--artifacts=local --target=x86_64-pc-windows-msvc",
+            "targets": [
+              "x86_64-pc-windows-msvc"
+            ],
+            "cache_provider": "github"
+          },
+          {
+            "runner": "ubuntu-22.04",
+            "host": "x86_64-unknown-linux-gnu",
+            "install_dist": {
+              "shell": "sh",
+              "run": "curl --proto '=https' --tlsv1.2 -LsSf https://github.com/axodotdev/cargo-dist/releases/download/v0.33.0/cargo-dist-installer.sh | sh"
+            },
+            "dist_args": "--artifacts=local --target=x86_64-unknown-linux-gnu",
+            "targets": [
+              "x86_64-unknown-linux-gnu"
+            ],
+            "cache_provider": "github"
+          }
+        ]
+      },
+      "pr_run_mode": "plan"
+    }
+  },
+  "linkage": [],
+  "upload_files": []
+}
