@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"testing"
 )
@@ -29,6 +30,9 @@ func TestTheLauncherIsTransparent(t *testing.T) {
 		t.Skip("builds the launcher")
 	}
 	launcher := filepath.Join(t.TempDir(), "bonsai-lint")
+	if runtime.GOOS == "windows" {
+		launcher += ".exe"
+	}
 	if out, err := exec.Command("go", "build", "-o", launcher, ".").CombinedOutput(); err != nil {
 		t.Fatalf("go build: %v\n%s", err, out)
 	}
