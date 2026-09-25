@@ -42,27 +42,39 @@ func (l *launcher) resolve() (string, error) {
 		return "", errors.New("this launcher is an unreleased build with no binary to fetch; " +
 			"install a release (go install bonsai.kauneckas.dev/bonsai-lint@latest) or set BONSAI_LINT_BINARY")
 	}
-	target, ok := l.archives[l.platform]
-	if !ok {
+	if _, ok := l.archives[l.platform]; !ok {
 		return "", l.unsupported("there is no prebuilt binary for " + l.platform)
 	}
 	root, err := l.cacheRoot()
 	if err != nil {
 		return "", err
 	}
-	binary := filepath.Join(root, l.version, target.triple, target.executable())
-	if isFile(binary) {
-		return binary, nil
-	}
-	if strings.HasPrefix(l.platform, "linux/") {
-		if problem := hostProblem(l.ldd()); problem != "" {
-			return "", l.unsupported(problem)
+	// A cached build was chosen for this host before, so ldd is asked only ahead of a download.
+	// The static one runs on any Linux, so it wins if a cache shared between hosts holds both.
+	for _, key := range []string{l.platform + staticSuffix, l.platform} {
+		if target, ok := l.archives[key]; ok {
+			if binary := l.cached(root, target); isFile(binary) {
+				return binary, nil
+			}
 		}
 	}
-	if err := l.install(target, binary); err != nil {
+	key := l.platform
+	if strings.HasPrefix(key, "linux/") && !glibcBuildRuns(l.ldd()) {
+		key += staticSuffix
+	}
+	target, ok := l.archives[key]
+	if !ok {
+		return "", l.unsupported("this system cannot run the glibc build, and there is no static one for " + l.platform)
+	}
+	binary := l.cached(root, target)
+	if err := l.install(key, target, binary); err != nil {
 		return "", err
 	}
 	return binary, nil
+}
+
+func (l *launcher) cached(root string, target archive) string {
+	return filepath.Join(root, l.version, target.triple, target.executable())
 }
 
 func (l *launcher) unsupported(problem string) error {
@@ -89,12 +101,12 @@ func (l *launcher) downloadBase() string {
 	return "https://github.com/ryckakas/bonsai-lint/releases/download/v" + l.version
 }
 
-func (l *launcher) install(target archive, binary string) error {
+func (l *launcher) install(key string, target archive, binary string) error {
 	dir := filepath.Dir(binary)
 	if err := os.MkdirAll(dir, 0o755); err != nil {
 		return err
 	}
-	fmt.Fprintf(l.stderr, "bonsai-lint: downloading v%s for %s…\n", l.version, l.platform)
+	fmt.Fprintf(l.stderr, "bonsai-lint: downloading v%s for %s…\n", l.version, key)
 	downloaded, err := l.fetch(l.downloadBase()+"/"+target.name, target.sha256, dir)
 	if err != nil {
 		return err

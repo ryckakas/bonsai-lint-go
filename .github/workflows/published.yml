@@ -45,3 +45,27 @@ jobs:
           printf 'package p\n\nfunc f(a, b bool) int {\n\tif a {\n\t\tif b {\n\t\t\treturn 1\n\t\t}\n\t}\n\treturn 0\n}\n' > p.go
           bonsai-lint --all --format json . | tee report.json
           grep -F '"name": "f"' report.json
+
+  alpine:
+    # A musl host, which has to get the static build rather than the glibc one.
+    name: go install (Alpine, ${{ matrix.runner }})
+    runs-on: ${{ matrix.runner }}
+    container: golang:alpine
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-latest, ubuntu-24.04-arm]
+    steps:
+      - name: Install from the proxy
+        run: |
+          for attempt in 1 2 3 4 5 6 7 8 9 10; do
+            go install "bonsai.kauneckas.dev/bonsai-lint@${GITHUB_REF_NAME}" && exit 0
+            echo "attempt $attempt: the proxy does not serve ${GITHUB_REF_NAME} yet"
+            sleep 30
+          done
+          exit 1
+      - name: Runs the static build
+        run: |
+          "$(go env GOPATH)/bin/bonsai-lint" --version | tee version.txt
+          grep -Fx "bonsai-lint ${GITHUB_REF_NAME#v}" version.txt
+          ls "${XDG_CACHE_HOME:-$HOME/.cache}/bonsai-lint/${GITHUB_REF_NAME#v}" | grep -x '.*-unknown-linux-musl'

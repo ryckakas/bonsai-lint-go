@@ -88,6 +88,47 @@
         "aarch64-unknown-linux-gnu"
       ]
     },
+    "bonsai-lint-aarch64-unknown-linux-musl.tar.gz": {
+      "assets": [
+        {
+          "kind": "changelog",
+          "name": "CHANGELOG.md",
+          "path": "CHANGELOG.md"
+        },
+        {
+          "kind": "license",
+          "name": "LICENSE",
+          "path": "LICENSE"
+        },
+        {
+          "kind": "readme",
+          "name": "README.md",
+          "path": "README.md"
+        },
+        {
+          "id": "bonsai-lint-aarch64-unknown-linux-musl-exe-bonsai-lint",
+          "kind": "executable",
+          "name": "bonsai-lint",
+          "path": "bonsai-lint"
+        }
+      ],
+      "checksum": "bonsai-lint-aarch64-unknown-linux-musl.tar.xz.sha256",
+      "checksums": {
+        "sha256": "38990144ad7c86a796fa7844440da54dbc1ca481e48f87796209d8a9f5d26611"
+      },
+      "kind": "executable-zip",
+      "name": "bonsai-lint-aarch64-unknown-linux-musl.tar.gz",
+      "target_triples": [
+        "aarch64-unknown-linux-musl"
+      ]
+    },
+    "bonsai-lint-aarch64-unknown-linux-musl.tar.xz.sha256": {
+      "kind": "checksum",
+      "name": "bonsai-lint-aarch64-unknown-linux-musl.tar.xz.sha256",
+      "target_triples": [
+        "aarch64-unknown-linux-musl"
+      ]
+    },
     "bonsai-lint-installer.ps1": {
       "description": "Install prebuilt binaries via powershell script",
       "install_hint": "powershell -ExecutionPolicy Bypass -c \"irm https://github.com/ryckakas/bonsai-lint/releases/download/v0.2.1/bonsai-lint-installer.ps1 | iex\"",
@@ -298,6 +339,47 @@
       "name": "bonsai-lint-x86_64-unknown-linux-gnu.tar.xz.sha256",
       "target_triples": [
         "x86_64-unknown-linux-gnu"
+      ]
+    },
+    "bonsai-lint-x86_64-unknown-linux-musl.tar.gz": {
+      "assets": [
+        {
+          "kind": "changelog",
+          "name": "CHANGELOG.md",
+          "path": "CHANGELOG.md"
+        },
+        {
+          "kind": "license",
+          "name": "LICENSE",
+          "path": "LICENSE"
+        },
+        {
+          "kind": "readme",
+          "name": "README.md",
+          "path": "README.md"
+        },
+        {
+          "id": "bonsai-lint-x86_64-unknown-linux-musl-exe-bonsai-lint",
+          "kind": "executable",
+          "name": "bonsai-lint",
+          "path": "bonsai-lint"
+        }
+      ],
+      "checksum": "bonsai-lint-x86_64-unknown-linux-musl.tar.xz.sha256",
+      "checksums": {
+        "sha256": "11a7f97d7c53e609ba9fb10d25657f4474d2bfc81353533ddaec0ab2ca688e9c"
+      },
+      "kind": "executable-zip",
+      "name": "bonsai-lint-x86_64-unknown-linux-musl.tar.gz",
+      "target_triples": [
+        "x86_64-unknown-linux-musl"
+      ]
+    },
+    "bonsai-lint-x86_64-unknown-linux-musl.tar.xz.sha256": {
+      "kind": "checksum",
+      "name": "bonsai-lint-x86_64-unknown-linux-musl.tar.xz.sha256",
+      "target_triples": [
+        "x86_64-unknown-linux-musl"
       ]
     },
     "bonsai-lint.rb": {
@@ -539,7 +621,11 @@
         "bonsai-lint-x86_64-pc-windows-msvc.zip",
         "bonsai-lint-x86_64-pc-windows-msvc.zip.sha256",
         "bonsai-lint-x86_64-unknown-linux-gnu.tar.xz",
-        "bonsai-lint-x86_64-unknown-linux-gnu.tar.xz.sha256"
+        "bonsai-lint-x86_64-unknown-linux-gnu.tar.xz.sha256",
+        "bonsai-lint-aarch64-unknown-linux-musl.tar.gz",
+        "bonsai-lint-aarch64-unknown-linux-musl.tar.xz.sha256",
+        "bonsai-lint-x86_64-unknown-linux-musl.tar.gz",
+        "bonsai-lint-x86_64-unknown-linux-musl.tar.xz.sha256"
       ],
       "display": true,
       "display_name": "bonsai-lint",
