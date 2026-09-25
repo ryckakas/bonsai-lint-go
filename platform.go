@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"os/exec"
 	"path"
 	"regexp"
@@ -11,8 +10,11 @@ import (
 	"time"
 )
 
-// The Linux release binaries are built on ubuntu-22.04, so they need its glibc or newer.
+// The glibc Linux binaries are built on ubuntu-22.04, so they need its glibc or newer.
 const glibcMajor, glibcMinor = 2, 35
+
+// A Linux platform's static musl build is listed under the platform with this suffix.
+const staticSuffix = "/musl"
 
 type archive struct {
 	triple string
@@ -38,26 +40,21 @@ func (a archive) holds(entry string) bool {
 
 var glibcVersion = regexp.MustCompile(`(\d+)\.(\d+)\s*$`)
 
-// hostProblem says why the Linux release binaries cannot run on a system whose `ldd --version`
-// printed this, or returns "" when they can or when the output is not recognised.
-func hostProblem(ldd string) string {
+// glibcBuildRuns says whether the glibc binary can run on a system whose `ldd --version` printed
+// this. Whatever it cannot confirm, musl or output it does not recognise, gets the static build,
+// which runs on any Linux.
+func glibcBuildRuns(ldd string) bool {
 	if strings.Contains(strings.ToLower(ldd), "musl") {
-		return "there is no prebuilt binary for musl Linux (Alpine and similar) yet"
+		return false
 	}
 	first, _, _ := strings.Cut(strings.TrimSpace(ldd), "\n")
 	match := glibcVersion.FindStringSubmatch(first)
 	if match == nil {
-		return ""
+		return false
 	}
 	major, _ := strconv.Atoi(match[1])
 	minor, _ := strconv.Atoi(match[2])
-	if major > glibcMajor || (major == glibcMajor && minor >= glibcMinor) {
-		return ""
-	}
-	return fmt.Sprintf(
-		"the Linux binaries need glibc %d.%d or newer, and this system has %d.%d",
-		glibcMajor, glibcMinor, major, minor,
-	)
+	return major > glibcMajor || (major == glibcMajor && minor >= glibcMinor)
 }
 
 // musl's ldd prints its banner to stderr and exits 1, so the output counts whatever the status.

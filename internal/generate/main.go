@@ -18,13 +18,16 @@ import (
 	"strings"
 )
 
-// The GOOS/GOARCH pairs the release covers, each mapped to the dist target it downloads.
+// The GOOS/GOARCH pairs the release covers, each mapped to the dist target it downloads. A
+// "/musl" key is the static build, for the Linux hosts the glibc build cannot run on.
 var platforms = map[string]string{
-	"darwin/amd64":  "x86_64-apple-darwin",
-	"darwin/arm64":  "aarch64-apple-darwin",
-	"linux/amd64":   "x86_64-unknown-linux-gnu",
-	"linux/arm64":   "aarch64-unknown-linux-gnu",
-	"windows/amd64": "x86_64-pc-windows-msvc",
+	"darwin/amd64":     "x86_64-apple-darwin",
+	"darwin/arm64":     "aarch64-apple-darwin",
+	"linux/amd64":      "x86_64-unknown-linux-gnu",
+	"linux/amd64/musl": "x86_64-unknown-linux-musl",
+	"linux/arm64":      "aarch64-unknown-linux-gnu",
+	"linux/arm64/musl": "aarch64-unknown-linux-musl",
+	"windows/amd64":    "x86_64-pc-windows-msvc",
 	// No native build yet; Windows 11 on ARM runs the x64 binary under emulation.
 	"windows/arm64": "x86_64-pc-windows-msvc",
 }
@@ -111,16 +114,21 @@ func archives(m manifest) (string, []entry, error) {
 		return "", nil, fmt.Errorf("tag %q does not match version %s", m.AnnouncementTag, version)
 	}
 
+	// In a fixed order, so a release missing several archives always reports the same one.
+	var names []string
+	for platform := range platforms {
+		names = append(names, platform)
+	}
+	sort.Strings(names)
 	var entries []entry
-	for platform, triple := range platforms {
-		found, err := archiveFor(m, triple)
+	for _, platform := range names {
+		found, err := archiveFor(m, platforms[platform])
 		if err != nil {
 			return "", nil, err
 		}
 		found.platform = platform
 		entries = append(entries, found)
 	}
-	sort.Slice(entries, func(i, j int) bool { return entries[i].platform < entries[j].platform })
 	return version, entries, nil
 }
 

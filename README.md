@@ -41,14 +41,18 @@ binary you run.
 | --- | --- |
 | `darwin/arm64`, `darwin/amd64` | macOS |
 | `linux/amd64`, `linux/arm64` | Linux with glibc 2.35 or newer (Ubuntu 22.04, Debian 12, RHEL 9 and newer) |
+| `linux/amd64`, `linux/arm64` | Static Linux, for every other Linux: Alpine and other musl systems, older glibc, no libc at all |
 | `windows/amd64` | Windows |
 | `windows/arm64` | Windows x64, which Windows 11 on ARM runs under emulation, as npm's installer does |
 
-- **Other platforms fail with an explanation.** That includes musl Linux such as Alpine, and
-  glibc older than 2.35. Install bonsai-lint from source with `cargo install bonsai-lint` there,
-  and point `BONSAI_LINT_BINARY` at the result.
-- **These gaps are known.** musl, a native Windows on ARM build and an older glibc floor are on
-  the [roadmap](https://github.com/ryckakas/bonsai-lint/blob/main/ROADMAP.md).
+- **Linux picks its build from `ldd --version`** on the first run of a version. glibc 2.35 or
+  newer gets the glibc build. Anything else gets the static one, which runs on any Linux kernel,
+  and so does a system whose `ldd` is missing or unrecognised. dist's installer script and npm
+  package make the same choice on musl and on older glibc.
+- **Other platforms fail with an explanation.** Install bonsai-lint from source with
+  `cargo install bonsai-lint` there, and point `BONSAI_LINT_BINARY` at the result.
+- **A native Windows on ARM build** is on the
+  [roadmap](https://github.com/ryckakas/bonsai-lint/blob/main/ROADMAP.md).
 
 ## Settings
 

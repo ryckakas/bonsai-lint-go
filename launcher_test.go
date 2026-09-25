@@ -31,6 +31,7 @@ type fixture struct {
 	env      map[string]string
 	stderr   lockedBuffer
 	ldd      string
+	lddCalls atomic.Int64
 }
 
 // Concurrent resolves stand in for concurrent processes, which each have their own stderr.
@@ -78,7 +79,7 @@ func (f *fixture) launcher(platform string, entries map[string]archive) *launche
 		platform:     platform,
 		getenv:       func(key string) string { return f.env[key] },
 		userCacheDir: func() (string, error) { return "", errors.New("no home") },
-		ldd:          func() string { return f.ldd },
+		ldd:          func() string { f.lddCalls.Add(1); return f.ldd },
 		client:       f.server.Client(),
 		stderr:       &f.stderr,
 	}
@@ -128,6 +129,18 @@ func linuxRelease(f *fixture) map[string]archive {
 	triple := "x86_64-unknown-linux-gnu"
 	entry := f.serve(triple, "bonsai-lint-"+triple+".tar.gz", "bonsai-lint", distTarGz(f.t, triple))
 	return map[string]archive{"linux/amd64": entry}
+}
+
+// Both Linux builds, as a release publishes them.
+func linuxReleases(f *fixture) map[string]archive {
+	entries := linuxRelease(f)
+	triple := "x86_64-unknown-linux-musl"
+	entries["linux/amd64/musl"] = f.serve(triple, "bonsai-lint-"+triple+".tar.gz", "bonsai-lint", distTarGz(f.t, triple))
+	return entries
+}
+
+func tripleOf(binary string) string {
+	return filepath.Base(filepath.Dir(binary))
 }
 
 func TestTheFirstRunDownloadsVerifiesAndCaches(t *testing.T) {
@@ -299,7 +312,76 @@ func TestAnUnsupportedPlatformNamesItselfAndTheFallback(t *testing.T) {
 	}
 }
 
-func TestMuslAndOldGlibcAreRefusedBeforeDownloading(t *testing.T) {
+func TestCurrentGlibcGetsTheGlibcBuild(t *testing.T) {
+	f := newFixture(t)
+
+	binary, err := f.launcher("linux/amd64", linuxReleases(f)).resolve()
+
+	if err != nil || tripleOf(binary) != "x86_64-unknown-linux-gnu" {
+		t.Fatalf("binary %s, err %v", binary, err)
+	}
+}
+
+func TestMuslOldGlibcAndAnUnrecognisedLddGetTheStaticBuild(t *testing.T) {
+	for _, ldd := range []string{
+		"musl libc (x86_64)\nVersion 1.2.4\nDynamic Program Loader\n",
+		"ldd (Debian GLIBC 2.31-13+deb11u11) 2.31\n",
+		"",
+	} {
+		f := newFixture(t)
+		f.ldd = ldd
+
+		binary, err := f.launcher("linux/amd64", linuxReleases(f)).resolve()
+
+		if err != nil || tripleOf(binary) != "x86_64-unknown-linux-musl" {
+			t.Fatalf("ldd %q: binary %s, err %v", ldd, binary, err)
+		}
+		if !strings.Contains(f.stderr.String(), "downloading v9.9.9 for linux/amd64/musl") {
+			t.Fatalf("ldd %q: stderr %q", ldd, f.stderr.String())
+		}
+	}
+}
+
+func TestACachedBuildStartsWithoutAskingLdd(t *testing.T) {
+	for _, ldd := range []string{glibc235, "musl libc (x86_64)\nVersion 1.2.4\n"} {
+		f := newFixture(t)
+		f.ldd = ldd
+		l := f.launcher("linux/amd64", linuxReleases(f))
+		first, err := l.resolve()
+		if err != nil {
+			t.Fatal(err)
+		}
+		asked := f.lddCalls.Load()
+
+		again, err := l.resolve()
+
+		if err != nil || again != first || f.lddCalls.Load() != asked {
+			t.Fatalf("ldd %q: %s, then %s (err %v), asking ldd %d more times",
+				ldd, first, again, err, f.lddCalls.Load()-asked)
+		}
+	}
+}
+
+func TestACacheHoldingBothBuildsStartsTheStaticOne(t *testing.T) {
+	f := newFixture(t)
+	for _, triple := range []string{"x86_64-unknown-linux-gnu", "x86_64-unknown-linux-musl"} {
+		dir := filepath.Join(f.env["BONSAI_LINT_CACHE"], "9.9.9", triple)
+		if err := os.MkdirAll(dir, 0o755); err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(filepath.Join(dir, "bonsai-lint"), fakeBinary, 0o755); err != nil {
+			t.Fatal(err)
+		}
+	}
+
+	binary, err := f.launcher("linux/amd64", linuxReleases(f)).resolve()
+
+	if err != nil || tripleOf(binary) != "x86_64-unknown-linux-musl" || f.requests.Load() != 0 {
+		t.Fatalf("binary %s, err %v, %d requests", binary, err, f.requests.Load())
+	}
+}
+
+func TestWithoutAStaticBuildMuslAndOldGlibcAreRefused(t *testing.T) {
 	for _, ldd := range []string{
 		"musl libc (x86_64)\nVersion 1.2.4\nDynamic Program Loader\n",
 		"ldd (Debian GLIBC 2.31-13+deb11u11) 2.31\n",
@@ -350,10 +432,10 @@ func TestWithoutACacheDirectoryTheVariableIsNamed(t *testing.T) {
 	}
 }
 
-func TestHostProblemReadsLddVersions(t *testing.T) {
+func TestGlibcBuildRunsReadsLddVersions(t *testing.T) {
 	for _, c := range []struct {
 		ldd  string
-		fine bool
+		runs bool
 	}{
 		{glibc235, true},
 		{"ldd (Debian GLIBC 2.36-9+deb12u10) 2.36\n", true},
@@ -363,11 +445,11 @@ func TestHostProblemReadsLddVersions(t *testing.T) {
 		{"ldd (GNU libc) 2.28\n", false},
 		{"ldd (GNU libc) 2.26\n", false},
 		{"musl libc (aarch64)\nVersion 1.2.5\n", false},
-		{"", true},
-		{"something else entirely\n", true},
+		{"", false},
+		{"something else entirely\n", false},
 	} {
-		if got := hostProblem(c.ldd) == ""; got != c.fine {
-			t.Errorf("hostProblem(%q) fine = %v, want %v", c.ldd, got, c.fine)
+		if got := glibcBuildRuns(c.ldd); got != c.runs {
+			t.Errorf("glibcBuildRuns(%q) = %v, want %v", c.ldd, got, c.runs)
 		}
 	}
 }

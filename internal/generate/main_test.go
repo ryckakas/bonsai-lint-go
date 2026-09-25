@@ -71,6 +71,25 @@ func TestWindowsOnArmGetsTheX64Archive(t *testing.T) {
 	}
 }
 
+func TestEachLinuxPlatformAlsoGetsItsStaticBuild(t *testing.T) {
+	_, entries, err := archives(load(t, "dist-manifest-targz.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	byPlatform := map[string]entry{}
+	for _, e := range entries {
+		byPlatform[e.platform] = e
+	}
+	for platform, triple := range map[string]string{
+		"linux/amd64/musl": "x86_64-unknown-linux-musl",
+		"linux/arm64/musl": "aarch64-unknown-linux-musl",
+	} {
+		if got := byPlatform[platform]; got.triple != triple || got.name != "bonsai-lint-"+triple+".tar.gz" {
+			t.Errorf("%s = %+v", platform, got)
+		}
+	}
+}
+
 func TestTheVersionMustBeTheTag(t *testing.T) {
 	m := load(t, "dist-manifest-targz.json")
 	m.AnnouncementTag = "v9.9.9"
