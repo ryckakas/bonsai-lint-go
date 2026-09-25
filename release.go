@@ -2,7 +2,15 @@
 
 package main
 
-// An unreleased launcher: the release job replaces this file when it tags a version.
-const version = ""
+const version = "0.4.0"
 
-var archives = map[string]archive{}
+var archives = map[string]archive{
+	"darwin/amd64":     {triple: "x86_64-apple-darwin", name: "bonsai-lint-x86_64-apple-darwin.tar.gz", sha256: "151b510ce036bf2201b142fbe3fd1a612a22868e70901b4def441c37b4cb4dd8", binary: "bonsai-lint"},
+	"darwin/arm64":     {triple: "aarch64-apple-darwin", name: "bonsai-lint-aarch64-apple-darwin.tar.gz", sha256: "511ff1cad6a1cfc6a94104ba6079fdab128783adafa8c12d5452334cecf59c23", binary: "bonsai-lint"},
+	"linux/amd64":      {triple: "x86_64-unknown-linux-gnu", name: "bonsai-lint-x86_64-unknown-linux-gnu.tar.gz", sha256: "666e37b81b3837e0f30ac39ea0bf2783bb63dae62f9acc6ade70864e76664f75", binary: "bonsai-lint"},
+	"linux/amd64/musl": {triple: "x86_64-unknown-linux-musl", name: "bonsai-lint-x86_64-unknown-linux-musl.tar.gz", sha256: "9bda269219282d17ab75e91e2b7aee8aebc279ee1404fd882cc0e81d41038857", binary: "bonsai-lint"},
+	"linux/arm64":      {triple: "aarch64-unknown-linux-gnu", name: "bonsai-lint-aarch64-unknown-linux-gnu.tar.gz", sha256: "d05969c191bc0148594d61922235f2d3cbc97085043f3b61ec2dd51613e61c7b", binary: "bonsai-lint"},
+	"linux/arm64/musl": {triple: "aarch64-unknown-linux-musl", name: "bonsai-lint-aarch64-unknown-linux-musl.tar.gz", sha256: "0e97cf657bd2abb7833ae0cbca4a4a47c9faaba99ea90a7a650d89447b6e5d7d", binary: "bonsai-lint"},
+	"windows/amd64":    {triple: "x86_64-pc-windows-msvc", name: "bonsai-lint-x86_64-pc-windows-msvc.zip", sha256: "9ed5eb38a1dd994d3c159d92d168881ac759331690d6dd3bb6310c7737099478", binary: "bonsai-lint.exe"},
+	"windows/arm64":    {triple: "x86_64-pc-windows-msvc", name: "bonsai-lint-x86_64-pc-windows-msvc.zip", sha256: "9ed5eb38a1dd994d3c159d92d168881ac759331690d6dd3bb6310c7737099478", binary: "bonsai-lint.exe"},
+}
